@@ -19,7 +19,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::paginate(2);
 
         return view('admin.projects.index', [
             'projects' => $projects
@@ -45,6 +45,7 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
@@ -53,14 +54,15 @@ class ProjectController extends Controller
             $path = Storage::put('uploaded', $data['cover_img']);
         }
 
-        $project = new Project();
+        $project = Project::create([
+            ...$data,
+            'cover_img' => $path ?? null,
+        ]);
 
-        $project->fill($data);
-        $project->cover_img = $path ?? null;
-        // $project->technologies()->attach($data['technologies']);
+        if ($request->has('technologies')) {
 
-
-        $project->save();
+            $project->technologies()->attach($data['technologies']);
+        }
 
         return redirect()->route('admin.projects.show', $project->id);
     }
@@ -82,6 +84,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Project $project)
     {
         $types = Type::all();
@@ -97,6 +100,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $data = $request->validated();
@@ -115,6 +119,8 @@ class ProjectController extends Controller
             'cover_img' => $path ?? $project->cover_img
         ]);
 
+        $project->technologies()->sync($data['technologies']);
+
         return redirect()->route('admin.projects.show', $project->id);
     }
 
@@ -124,12 +130,14 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Project $project)
     {
-
         if ($project->cover_img) {
             Storage::delete($project->cover_img);
         }
+        $project->technologies()->detach();
+
         $project->delete();
 
         return redirect()->route('admin.projects.index');

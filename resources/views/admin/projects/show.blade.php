@@ -18,9 +18,9 @@
 
          <h4>Technologies:</h4>
          @foreach ($project->technologies as $technology)
-            <p>
-               {{ $project->technologies }}
-            </p>
+            <span class="rounded-pill bg-info px-3 py-1 m-1">
+               {{ $technology->name }}
+            </span>
          @endforeach
 
          <h4>Description: </h4>
@@ -31,6 +31,9 @@
          </h6>
       </div>
    </div>
-   <a href="{{ route('admin.projects.index') }}" class="mx-3">Return to projects list</a>
-   <a href="{{ route('admin.projects.edit', $project->id) }}" class="mx-3">Edit this project</a>
+   <div class="controls d-flex m-3">
+      <a href="{{ route('admin.projects.index') }}" class="mx-3 btn btn-primary">Return to projects list</a>
+      <a href="{{ route('admin.projects.edit', $project->id) }}" class="mx-3 btn btn-warning">Edit this project</a>
+      @include('admin.projects.partials.delete-form-btn')
+   </div>
 @endsection

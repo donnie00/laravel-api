@@ -14,13 +14,15 @@ class TypesTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker)
+    public function run()
     {
-        for ($i = 0; $i < 5; $i++) {
+        $types = ['Front-end', 'Back-end', 'Api', 'Full-stack'];
+
+        foreach ($types as $typeName) {
 
             $type = new Type();
 
-            $type->name = $faker->word();
+            $type->name = $typeName;
 
             $type->save();
         }

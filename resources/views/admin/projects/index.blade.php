@@ -5,6 +5,7 @@
       <a href="{{ route('admin.projects.create') }}" class="mx-3">Add new</a>
    </div>
 
+   {{ $projects->links() }}
 
    <table class="table">
       <thead class="table-secondary">
@@ -40,4 +41,6 @@
          @endforeach
       </tbody>
    </table>
+
+   {{ $projects->links() }}
 @endsection

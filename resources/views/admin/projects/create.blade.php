@@ -39,7 +39,7 @@
          @foreach ($technologies as $technology)
             <div class="form-check form-check-inline @error('technologies') is-invalid @enderror">
                <input class="form-check-input @error('technologies') is-invalid @enderror" type="checkbox"
-                  id="technologiesCheck_{{ $loop->index }}" name="technologies[]" value="{{ $technology->name }}">
+                  id="technologiesCheck_{{ $loop->index }}" name="technologies[]" value="{{ $technology->id }}">
 
                <label class="form-check-label" for="technologiesCheck_{{ $loop->index }}">
                   {{ $technology->name }}

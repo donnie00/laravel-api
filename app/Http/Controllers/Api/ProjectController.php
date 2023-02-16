@@ -12,6 +12,13 @@ class ProjectController extends Controller
     {
         $projects = Project::with('type', 'technologies')->paginate(5);
 
-        return response()->json([$projects]);
+        return response()->json($projects);
+    }
+
+    public function show(Project $project)
+    {
+        $project->load('type', 'technologies');
+
+        return response()->json($project);
     }
 }

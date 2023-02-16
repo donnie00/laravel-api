@@ -1,1 +1,11 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+
+tbody {
+   tr {
+      td {
+         img {
+            max-height: 100px;
+         }
+      }
+   }
+}

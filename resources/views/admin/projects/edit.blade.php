@@ -35,6 +35,22 @@
          @endforeach
       </select>
 
+      <label class="form-label">Technology: </label>
+
+      <div class="mb-3">
+         @foreach ($technologies as $technology)
+            <div class="form-check form-check-inline @error('technologies') is-invalid @enderror">
+               <input class="form-check-input @error('technologies') is-invalid @enderror" type="checkbox"
+                  id="technologiesCheck_{{ $loop->index }}" name="technologies[]" value="{{ $technology->id }}"
+                  {{ $project->technologies->contains('id', $technology->id) ? 'checked' : '' }}>
+
+               <label class="form-check-label" for="technologiesCheck_{{ $loop->index }}">
+                  {{ $technology->name }}
+               </label>
+            </div>
+         @endforeach
+      </div>
+
       <label class="form-label">Cover image:</label>
       <input type="file" name="cover_img" class="form-control @error('cover_img') is-invalid @enderror">
 
