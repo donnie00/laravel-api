@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\TypeController;
 
 /*
@@ -37,6 +38,7 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::resource('projects', ProjectController::class);
         Route::resource('types', TypeController::class);
+        Route::get('contacts', [ContactController::class, 'index']);
     });
 
 require __DIR__ . '/auth.php';

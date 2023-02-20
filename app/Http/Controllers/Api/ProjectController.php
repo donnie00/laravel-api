@@ -8,15 +8,27 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::with('type', 'technologies')->paginate(5);
+        $last3 = $request->input('last3');
+        $order = $request->input('order');
+
+        if ($last3) {
+            $projects = Project::with('type', 'technologies')->orderBy('created_at', 'DESC')->limit(3)->get();
+        } elseif ($order === 'oldest') {
+            $projects = Project::with('type', 'technologies')->orderBy('created_at', 'ASC')->get();
+        } elseif ($order === 'latest') {
+            $projects = Project::with('type', 'technologies')->orderBy('created_at', 'DESC')->get();
+        } else {
+            $projects = Project::with('type', 'technologies')->get();
+        }
 
         return response()->json($projects);
     }
 
     public function show(Project $project)
     {
+
         $project->load('type', 'technologies');
 
         return response()->json($project);
