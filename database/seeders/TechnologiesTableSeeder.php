@@ -15,12 +15,34 @@ class TechnologiesTableSeeder extends Seeder
      */
     public function run()
     {
-        $techs = ['laravel', 'html', 'css', 'javaScript', 'vue'];
+        $techs = [
+            [
+                'name' => 'laravel',
+                'icon' => 'fa-laravel',
+            ],
+            [
+                'name' => 'html',
+                'icon' => 'fa-html5',
+            ],
+            [
+                'name' => 'css',
+                'icon' => 'fa-css3',
+            ],
+            [
+                'name' => 'javaScript',
+                'icon' => 'fa-js',
+            ],
+            [
+                'name' => 'vue',
+                'icon' => 'fa-vuejs',
+            ]
+        ];
 
         foreach ($techs as $tech) {
             $technology = new Technology();
 
-            $technology->name = $tech;
+            $technology->name = $tech['name'];
+            $technology->icon = $tech['icon'];
 
             $technology->save();
         }

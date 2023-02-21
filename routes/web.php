@@ -38,7 +38,13 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::resource('projects', ProjectController::class);
         Route::resource('types', TypeController::class);
-        Route::get('contacts', [ContactController::class, 'index']);
+        Route::resource('contacts', ContactController::class)->only(
+            [
+                'index',
+                'show',
+                'destroy'
+            ]
+        );
     });
 
 require __DIR__ . '/auth.php';

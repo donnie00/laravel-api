@@ -3,13 +3,14 @@
 @section('content')
    <h1 class="my-3 text-center">Contacts received</h1>
 
-   <table class="table table-striped">
+   <table class="table table-striped align-middle">
       <thead>
          <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Object</th>
             <th>Message</th>
+            <th></th>
          </tr>
       </thead>
       <tbody>
@@ -26,6 +27,16 @@
                </td>
                <td>
                   {{ $contact->message }}
+               </td>
+               <td class="text-center">
+                  <a href="{{ route('admin.contacts.show', $contact) }}" class="btn btn-warning">More</a>
+                  <form action="{{ route('admin.contacts.destroy', $contact->id) }}" method="POST" class="d-inline">
+                     @csrf
+                     @method('DELETE')
+
+                     <button class="btn btn-danger">Delete</button>
+
+                  </form>
                </td>
             </tr>
          @endforeach
